@@ -18,9 +18,14 @@ app.post("/books", (req, res) => {
 
   const id = Date.now().toString();
 
-  books.push({ id, title, author, publishedDate });
 
-  res.json({ id, title, author, publishedDate });
+  if (!title || !author) {
+    return res.status(400).json({ error: "Title and author are required." });
+  }
+  else{
+      books.push({ id, title, author, publishedDate });
+      res.json({ id, title, author, publishedDate });
+  }
 });
 
 app.delete("/books/:id", (req, res) => {
